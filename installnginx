@@ -1,0 +1,20 @@
+---
+#install NGINX dans un container docker
+
+- hosts: nginx
+  tasks:
+   - name: update
+     apt: update_cache=yes
+     
+   - name: upgrade
+     apt: upgrade=yes
+
+   - name: "create an nginx container"
+        docker_container:
+          name: nginx-server
+          image: "nginx:latest"
+          state: started
+          published_ports:
+		    - 8080:80
+        
+#controle sur http://10.0.0.47:8080
