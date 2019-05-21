@@ -56,9 +56,6 @@
 
 #2-install NGINX dans un container docker
 
-- hosts: nginx
-  tasks:
-     
    - name: "création du dossier www/nginx"
      file:
        path: /var/www/nginx
