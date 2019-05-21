@@ -1,7 +1,9 @@
 #Ajouter le repository
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
-#Installer le package
-sudo yum install gitlab-runner
+
+#Installer le package via docker
+docker pull gitlab/gitlab-runner
+yum install xz-utils
 
 #Inscrire votre Runner sur Gitlab
 
