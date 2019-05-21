@@ -1,6 +1,6 @@
 ---
 
-#1-install NGINX dans un container docker
+#1-install Docker
 
 - hosts: nginx
      remote_user: root
@@ -15,7 +15,7 @@
         apt:
          update_cache: yes
 	 
-      - name: upgrade
+      - name: "upgrade"
         apt:
 	 upgrade=yes
                   
