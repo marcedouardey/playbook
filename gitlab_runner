@@ -5,8 +5,8 @@
   gitlab_runner:
     api_url: https://gitlab.example.com/
     api_token: "{{ access_token }}"
-    registration_token: 4gfdsg345
-    description: Docker Machine t1
+    registration_token: xxx
+    description: Docker machine
     state: present
     active: True
     tag_list: ['docker']
