@@ -1,4 +1,9 @@
 ---
+#Requirements
+#The below requirements are needed on the host that executes this module.
+#python >= 2.7
+#python-gitlab python module
+
 - hosts : 10.0.0.243
 
 - name: "Register runner"
@@ -6,7 +11,7 @@
     api_url: https://gitlab.example.com/
     api_token: "{{ access_token }}"
     registration_token: xxx
-    description: Docker machine
+    description: Docker machine xx
     state: present
     active: True
     tag_list: ['docker']
@@ -14,5 +19,6 @@
     locked: False
 
 gitlab/gitlab-runner:latest
+
 
 
