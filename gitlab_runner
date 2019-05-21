@@ -1,11 +1,18 @@
-#Ajouter le repository
-curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
+---
+- hosts : 10.0.0.243
 
-#Installer le package via docker
-docker pull gitlab/gitlab-runner
-yum install xz-utils
+- name: "Register runner"
+  gitlab_runner:
+    api_url: https://gitlab.example.com/
+    api_token: "{{ access_token }}"
+    registration_token: 4gfdsg345
+    description: Docker Machine t1
+    state: present
+    active: True
+    tag_list: ['docker']
+    run_untagged: False
+    locked: False
 
-#Inscrire votre Runner sur Gitlab
+gitlab/gitlab-runner:latest
 
-gitlab-runner register
-#ajout de l'url et du token (dispo dans votre projet dans Settings > CI / CD > Runners Settings > Expand.)
+
