@@ -8,13 +8,21 @@
      
    - name: upgrade
      apt: upgrade=yes
-
-   - name: "create an nginx container"
+     
+   - name: création du dossier www/nginx
+     file:
+       path: /var/www/nginx
+       state: directory
+       mode: 0770 
+   
+   - name: "création du container nginx"
         docker_container:
           name: nginx-server
           image: "nginx:latest"
           state: started
           published_ports:
 		    - 8080:80
+	  volumes:
+	     - /var/www/nginx:/var/
         
 #controle sur http://10.0.0.47:8080
