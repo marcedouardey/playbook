@@ -6,9 +6,7 @@
      remote_user: root
      become: yes
      vars:
-      deb_version: #XXXXXXX la version de debian retournée par lsb_release -cs
-      deb_ver2: #uname -s
-      deb_ver3: #uname -m
+      deb_version: strech
 
      tasks:
       - name: "update"
@@ -23,7 +21,7 @@
         apt:
          name: "{{ item }}"
          state: latest
-        with_items:
+        loop:
          - apt-transport-https
          - ca-certificates
          - curl
@@ -42,23 +40,17 @@
       
       - name: "set up the stable docker repo in apt"
         apt-repository:
-          repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ deb_version }} stable"
+          repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ strech }} stable"
 
 
       - name: "install docker-ce"
         apt:
          name: "{{ item }}"
          state: latest
-        with_items:
+        loop:
           - docker-ce
           - docker-ce-cli
           - containerd.io
-
-      - name: "install docker-compose"
-        get_url: 
-         url: https://github.com/docker/compose/releases/download/1.24.0/docker-compose-{{ deb_ver2 }}-{{ deb_ver3 }}
-         dest: /usr/local/bin/docker-compose
-         mode: 0744
 
 
 
