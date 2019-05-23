@@ -27,7 +27,6 @@ before_script:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-
 test:
     stage: test
     script:
@@ -43,7 +42,6 @@ production:
 artifacts:
     paths:
       - /builds/dev/webapp/
-
 
     script:
 #Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
