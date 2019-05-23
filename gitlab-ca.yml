@@ -52,3 +52,5 @@ paths:
     only:
         - master
     environment: production
+        name: production
+        url: 'http://10.0.0.250'
