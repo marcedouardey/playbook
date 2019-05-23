@@ -44,7 +44,7 @@ artifacts:
       - /builds/dev/webapp/
 
     script:
-#Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
+#Synchronise les dossiers GitLab avec le serveur Web: on prend tous les dossiers statiques et on les synchronise sur le serveur:
         - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / dev / webapp / * $APACHEserver
         - ssh -t dev@10.0.0.47 "cd dev && git pull && touch /srv/www/dev/dev.restart"
     only:
