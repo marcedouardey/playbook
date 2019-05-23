@@ -31,10 +31,10 @@ before_script:
 test:
     stage: test
     script:
-        - yum update -y
-        - yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
-        - yum install mariadb-devel mariadb-server python-virtualenv python-pip gcc gcc-c++ freetype-devel libpng-devel python-requests MySQL-python mailx python-simplejson vim httpd mod_wsgi -y
-        - sh setup.sh
+        #- yum update -y
+        #- yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
+        #- yum install mariadb-devel mariadb-server python-virtualenv python-pip gcc gcc-c++ freetype-devel libpng-devel python-requests MySQL-python mailx python-simplejson vim httpd mod_wsgi -y
+        #- sh setup.sh
 
 production:
     stage: deploy
@@ -42,12 +42,12 @@ production:
 #on précise que chaque version du site doit être stockée en tant qu’artefacts
 artifacts:
     paths:
-      - /builds/skofgar/jomis-neuralnetwork/
+      - /builds/dev/webapp/
 
 
     script:
 #Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
-        - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / skofgar / jomis-neuralnetwork / * APACHEserver
+        - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / dev / webapp / * $APACHEserver
         - ssh -t otter@production.host "cd otter && git pull && touch /srv/www/otter/otter.restart"
     only:
         - master
