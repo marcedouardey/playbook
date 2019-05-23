@@ -48,7 +48,7 @@ artifacts:
     script:
 #Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
         - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / dev / webapp / * $APACHEserver
-        - ssh -t otter@production.host "cd otter && git pull && touch /srv/www/otter/otter.restart"
+        - ssh -t dev@10.0.0.47 "cd dev && git pull && touch /srv/www/dev/dev.restart"
     only:
         - master
     environment: production
