@@ -41,16 +41,16 @@ production:
 
 #on précise que chaque version du site doit être stockée en tant qu’artefacts
 artifacts:
-paths:
-- /builds/skofgar/jomis-neuralnetwork/
+    paths:
+      - /builds/skofgar/jomis-neuralnetwork/
 
 
     script:
 #Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
-        - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / skofgar / jomis-neuralnetwork / * $ PRODUCTION_SERVER
+        - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / skofgar / jomis-neuralnetwork / * APACHEserver
         - ssh -t otter@production.host "cd otter && git pull && touch /srv/www/otter/otter.restart"
     only:
         - master
     environment: production
         name: production
-        url: 'http://10.0.0.250'
+        url: 'http://10.0.0.47'
