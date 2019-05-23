@@ -1,0 +1,35 @@
+image: centos:7
+
+stages:
+    - test
+    - deploy
+
+before_script:
+    - yum install which -y
+    # install ssh-agent if not already installed, it is required by docker
+    - 'which ssh-agent || ( yum install openssh-clients -y )'
+    # run ssh-agent (inside the build environment)
+    - eval $(ssh-agent -s)
+    # add the ssh key stored in SSH_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    # for docker builds disable host key checking although this can lead to
+    # mitm attacks; only use this in docker or it will overwrite the host
+    # ssh config!
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+test:
+    stage: test
+    script:
+        - yum update -y
+        - yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
+        - yum install mariadb-devel mariadb-server python-virtualenv python-pip gcc gcc-c++ freetype-devel libpng-devel python-requests MySQL-python mailx python-simplejson vim httpd mod_wsgi -y
+        - sh setup.sh
+
+production:
+    stage: deploy
+    script:
+        - ssh -t otter@production.host "cd otter && git pull && touch /srv/www/otter/otter.restart"
+    only:
+        - master
+    environment: production
