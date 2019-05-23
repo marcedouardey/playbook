@@ -1,13 +1,13 @@
 image: centos:7
 
 #~/.netrc file
-machine [gitlab-host]
-login [gitlab-user]
-password [password]
+#machine [gitlab-host]
+#login [gitlab-user]
+#password [password]
 #~/.netrc file
 
 #editing /etc/crontab and adding:
-root test -f /srv/www/otter/otter.restart && /bin/systemctl restart otter.service && rm -f /srv/www/otter/otter.restart
+#root test -f /srv/www/otter/otter.restart && /bin/systemctl restart otter.service && rm -f /srv/www/otter/otter.restart
 
 stages:
     - test
