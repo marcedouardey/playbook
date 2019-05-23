@@ -27,15 +27,6 @@ before_script:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-#Synchroniser les dossiers GitLab et serveur Web
-#En gros, je dis à GitLab CI de prendre tous mes dossiers statiques et de les synchroniser sur mon serveur:
-
-scénario:
-- rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / skofgar / jomis-neuralnetwork / * $ PRODUCTION_SERVER
-artefacts:
-chemins:
-- / builds / skofgar / jomis-neuralnetwork /
-
 
 test:
     stage: test
@@ -47,7 +38,16 @@ test:
 
 production:
     stage: deploy
+
+#on précise que chaque version du site doit être stockée en tant qu’artefacts
+artifacts:
+paths:
+- /builds/skofgar/jomis-neuralnetwork/
+
+
     script:
+#Synchroniser les dossiers GitLab et serveur Web: prendre tous mes dossiers statiques et synchroniser sur mon serveur:
+        - rsync -avuz -e 'ssh -i ~ / .ssh / id_rsa' / builds / skofgar / jomis-neuralnetwork / * $ PRODUCTION_SERVER
         - ssh -t otter@production.host "cd otter && git pull && touch /srv/www/otter/otter.restart"
     only:
         - master
